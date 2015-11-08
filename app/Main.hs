@@ -4,5 +4,4 @@ import Urban
 
 main :: IO ()
 main = do
-  def <- getDefinition "haskell"
-  print def
+  print . getDefinition $ "haskell"

@@ -1,3 +1,4 @@
+{-# LANGUAGE NamedFieldPuns #-}
 import Test.Hspec
 import Test.QuickCheck
 import Text.Regex.Posix
@@ -8,5 +9,8 @@ main = hspec $ do
   describe "Urban.getDefinition" $ do
     it "works" $ do
       fooDef <- getDefinition "foo"
-      let s = fooDef =~ "term used for unimportant variables in programming" :: (String)
-      s `shouldSatisfy` (/= "")
+      case fooDef of
+        Just def -> do
+          let s = (Urban.definition def) =~ "term used for unimportant variables in programming" :: (String)
+          s `shouldSatisfy` (/= "")
+        Nothing -> error "No result for foo"
